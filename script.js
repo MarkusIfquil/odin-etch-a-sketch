@@ -5,7 +5,7 @@ function getRandomColor() {
     return `rgb(${r},${g},${b})`;
 }
 
-function createSquares(numOfSquresOnOneSide) {
+function createSquaresColor(numOfSquresOnOneSide) {
     container.innerHTML = '';
     for (let index = 0; index < numOfSquresOnOneSide*numOfSquresOnOneSide; index++) {
         let squareDiv = document.createElement('div');
@@ -14,6 +14,7 @@ function createSquares(numOfSquresOnOneSide) {
         
         squareDiv.style.width = `${proportion}%`; 
         squareDiv.style.height = `${proportion}%`;
+        squareDiv.style.backgroundColor = 'white';
 
         squareDiv.addEventListener('mouseover',
             () => squareDiv.style.backgroundColor = getRandomColor()
@@ -23,12 +24,68 @@ function createSquares(numOfSquresOnOneSide) {
     }
 }
 
+function createSquaresGreyscale(numOfSquresOnOneSide) {
+    container.innerHTML = '';
+    for (let index = 0; index < numOfSquresOnOneSide*numOfSquresOnOneSide; index++) {
+        let squareDiv = document.createElement('div');
+
+        let proportion = 100 / numOfSquresOnOneSide;
+        
+        squareDiv.style.width = `${proportion}%`; 
+        squareDiv.style.height = `${proportion}%`;
+        squareDiv.style.backgroundColor = 'white';
+        squareDiv.style.opacity = '1';
+        squareDiv.addEventListener('mouseover',
+            () => {
+                let currentOpacity = +squareDiv.style.opacity;
+                if(currentOpacity === 0.0) {
+                    return;
+                }
+                squareDiv.style.opacity = (currentOpacity - 0.1).toString()
+            }
+        );
+
+        container.appendChild(squareDiv);
+    }
+}
+
 let container = document.querySelector('.container');
 
-let makeSquaresButton = document.querySelector('button');
+let makeSquaresButton = document.querySelector('.make-button');
 let input = document.querySelector('input');
 
-makeSquaresButton.addEventListener('click',
-    () => createSquares(+input.value)
+let colorButton = document.querySelector('.color-button');
+let greyscaleButton = document.querySelector('.greyscale-button');
+
+let currentGameMode = 'color';
+
+colorButton.addEventListener('click',
+    () => {
+        currentGameMode = 'color';
+        createSquaresColor(+input.value);
+    }
 );
 
+greyscaleButton.addEventListener('click',
+    () => {
+        currentGameMode = 'greyscale';
+        createSquaresGreyscale(+input.value);
+    }
+);
+
+makeSquaresButton.addEventListener('click',
+    () => {
+        switch (currentGameMode) {
+            case 'color': {
+                createSquaresColor(+input.value);
+                break;
+            }
+            case 'greyscale': {
+                createSquaresGreyscale(+input.value);
+                break;
+            }
+        }
+    }
+);
+
+createSquaresGreyscale(64);
