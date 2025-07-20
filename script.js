@@ -52,7 +52,16 @@ function createSquaresGreyscale(numOfSquresOnOneSide) {
 let container = document.querySelector('.container');
 
 let makeSquaresButton = document.querySelector('.make-button');
-let input = document.querySelector('input');
+let inputBox = document.querySelector('input');
+let input = 2;
+inputBox.addEventListener('input', 
+    () => {
+        if(+inputBox.value > 100) {
+            inputBox.value = '100';
+        }
+        input = +inputBox.value;
+    }
+)
 
 let colorButton = document.querySelector('.color-button');
 let greyscaleButton = document.querySelector('.greyscale-button');
@@ -62,14 +71,14 @@ let currentGameMode = 'greyscale';
 colorButton.addEventListener('click',
     () => {
         currentGameMode = 'color';
-        createSquaresColor(+input.value);
+        createSquaresColor(input);
     }
 );
 
 greyscaleButton.addEventListener('click',
     () => {
         currentGameMode = 'greyscale';
-        createSquaresGreyscale(+input.value);
+        createSquaresGreyscale(input);
     }
 );
 
@@ -77,11 +86,11 @@ makeSquaresButton.addEventListener('click',
     () => {
         switch (currentGameMode) {
             case 'color': {
-                createSquaresColor(+input.value);
+                createSquaresColor(input);
                 break;
             }
             case 'greyscale': {
-                createSquaresGreyscale(+input.value);
+                createSquaresGreyscale(input);
                 break;
             }
         }
