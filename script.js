@@ -1,3 +1,10 @@
+function getRandomColor() {
+    let r = Math.round(Math.random() * 1000) % 256;
+    let g = Math.round(Math.random() * 1000) % 256;
+    let b = Math.round(Math.random() * 1000) % 256;
+    return `rgb(${r},${g},${b})`;
+}
+
 function createSquares(numOfSquresOnOneSide) {
     container.innerHTML = '';
     for (let index = 0; index < numOfSquresOnOneSide*numOfSquresOnOneSide; index++) {
@@ -9,7 +16,7 @@ function createSquares(numOfSquresOnOneSide) {
         squareDiv.style.height = `${proportion}%`;
 
         squareDiv.addEventListener('mouseover',
-            () => squareDiv.style.backgroundColor = 'black'
+            () => squareDiv.style.backgroundColor = getRandomColor()
         );
 
         container.appendChild(squareDiv);
