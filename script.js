@@ -57,7 +57,7 @@ let input = document.querySelector('input');
 let colorButton = document.querySelector('.color-button');
 let greyscaleButton = document.querySelector('.greyscale-button');
 
-let currentGameMode = 'color';
+let currentGameMode = 'greyscale';
 
 colorButton.addEventListener('click',
     () => {
